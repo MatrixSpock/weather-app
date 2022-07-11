@@ -7,7 +7,6 @@ const search = document.getElementById("weather-search");
 form.onsubmit = async (e) => {
   e.preventDefault();
   let query = search.value;
-  let location = document.createElement("h2");
   search.value = "";
   section.innerHTML = "";
   // this.ClearForm();
@@ -19,29 +18,24 @@ form.onsubmit = async (e) => {
     response.json().then((data) => {
       console.log("data", data);
       
-      
       /* In Case Of Error */
       if (data.cod === "404" || data.cod === "400" || data.data?.cod === 404) {
-        console.log("404 code");
         let h2 = document.createElement("h2");
         h2.innerHTML = "Location Not Found";
         section.replaceChildren(h2);
         return;
       } else {
       /* In Case Of Success */
-        location = data.name + ", " + data.sys.country;
-
-        let city = createElement("h2", { innerHTML: location });
+        let locationString = data.name + ", " + data.sys.country;
+        let city = createElement("h2", { innerHTML: locationString });
         let mapLink = createElement("a", {
           innerHTML: "Click to view map",
           href: `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`,
           target: "__BLANK",
         });
-        
         let icon = createElement("img", {
           src: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
         });
-        
         let condition = createElement(
           "p",
           {
@@ -51,17 +45,16 @@ form.onsubmit = async (e) => {
             textTransform: "capitalize",
           }
         );
+
         
         let current = createElement("p", {
           innerHTML: `Current: ${data.main.temp}&deg;`,
         });
-        
         let feelsLike = createElement("p", {
           innerHTML: `Feels like: ${data.main.feels_like}&deg;`,
         });
-        
         let date = new Date(data.dt * 1000);
-        
+
         let lastUpdated = createElement("p", {
           innerHTML: `Last updated: ${date.toLocaleTimeString("en-US", {
             hour: "numeric",
@@ -98,7 +91,6 @@ const createElement = (el, props, styles = null) => {
 };
 
 function ClearForm(){
-  console.log("ClearForm");
   search.value = "";
   section.innerHTML = "";
 }
