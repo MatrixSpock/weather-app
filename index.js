@@ -30,16 +30,18 @@ form.onsubmit = async (e) => {
       } else {
       /* In Case Of Success */
         location = data.name + ", " + data.sys.country;
-        console.log("location", location);
+
         let city = createElement("h2", { innerHTML: location });
         let mapLink = createElement("a", {
           innerHTML: "Click to view map",
           href: `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`,
           target: "__BLANK",
         });
+        
         let icon = createElement("img", {
           src: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
         });
+        
         let condition = createElement(
           "p",
           {
@@ -49,13 +51,17 @@ form.onsubmit = async (e) => {
             textTransform: "capitalize",
           }
         );
+        
         let current = createElement("p", {
           innerHTML: `Current: ${data.main.temp}&deg;`,
         });
+        
         let feelsLike = createElement("p", {
           innerHTML: `Feels like: ${data.main.feels_like}&deg;`,
         });
+        
         let date = new Date(data.dt * 1000);
+        
         let lastUpdated = createElement("p", {
           innerHTML: `Last updated: ${date.toLocaleTimeString("en-US", {
             hour: "numeric",
@@ -74,9 +80,6 @@ form.onsubmit = async (e) => {
         );
       }
 
-    
-    
-    
     });    
   });
 };
