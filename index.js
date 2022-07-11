@@ -27,11 +27,11 @@ form.onsubmit = async (e) => {
         h2.innerHTML = "Location Not Found";
         section.replaceChildren(h2);
         return;
-      }else{
+      } else {
       /* In Case Of Success */
         location = data.name + ", " + data.sys.country;
         console.log("location", location);
-        let city = createElement("h2", { innerHTML: query });
+        let city = createElement("h2", { innerHTML: location });
         let mapLink = createElement("a", {
           innerHTML: "Click to view map",
           href: `https://www.google.com/maps/search/?api=1&query=${data.coord.lat},${data.coord.lon}`,
@@ -73,7 +73,11 @@ form.onsubmit = async (e) => {
           lastUpdated
         );
       }
-    });
+
+    
+    
+    
+    });    
   });
 };
 
